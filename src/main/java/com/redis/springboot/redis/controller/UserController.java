@@ -3,11 +3,15 @@ package com.redis.springboot.redis.controller;
 import com.redis.springboot.redis.model.User;
 import com.redis.springboot.redis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@EnableCaching
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -19,12 +23,14 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
+    //@Cacheable()
     public List<User> getAll(){
         return userRepository.findAll();
 
     }
 
     @GetMapping("/user/{id}")
+    @Cacheable(key = "#id",value = "User")
     public User getUser(@PathVariable int id){
         return userRepository.findById(id);
 

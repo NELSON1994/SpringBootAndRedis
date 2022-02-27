@@ -22,6 +22,7 @@ public class UserRepository {
     }
 
     public User findById(int id) {
+        System.out.println("called from db");
         return (User) redisTemplate.opsForHash().get("User", id);
     }
 
