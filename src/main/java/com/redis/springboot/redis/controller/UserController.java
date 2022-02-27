@@ -38,6 +38,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
+    @CacheEvict(key = "#id",value = "User")
     public String deleteUser(@PathVariable int id){
         return userRepository.deleteUser(id);
 
