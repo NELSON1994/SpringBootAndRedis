@@ -30,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    @Cacheable(key = "#id",value = "User")
+   // @Cacheable(key = "#id",value = "User")
+    @Cacheable(key = "#id",value = "User", unless = "#result.department==IT")// BASED ON CONDITION
     public User getUser(@PathVariable int id){
         return userRepository.findById(id);
 
